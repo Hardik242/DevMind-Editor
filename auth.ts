@@ -1,13 +1,15 @@
-import {db} from "@/lib/db";
 import {PrismaAdapter} from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import authConfig from "./auth.config";
-import {getAccountByUserId, getUserById} from "./features/auth/action";
+import {getUserById} from "./features/auth/action";
+import {db} from "./src/lib/db";
 
 export const {auth, handlers, signIn, signOut} = NextAuth({
-    secret: process.env.AUTH_SECRET,
+    pages: {
+        signIn: "/auth/signin",
+    },
     callbacks: {
-        async signIn({user, account, profile}) {
+        /*         async signIn({user, account, profile}) {
             console.log("Inside sigin but above condition");
             if (!user || !account) return false;
             console.log("Inside sigin but below condition");
@@ -75,7 +77,7 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
 
             return true;
         },
-
+ */
         async jwt({token}) {
             if (!token.sub) return token;
 
@@ -83,12 +85,10 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
 
             if (!existingUser) return token;
 
-            const existingAccount = await getAccountByUserId(token.sub);
-
             token.name = existingUser.name;
             token.email = existingUser.email;
             token.role = existingUser.role;
-            token.image = existingUser.imageUrl;
+            token.image = existingUser.image;
 
             return token;
         },
@@ -96,9 +96,8 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
         async session({session, token}) {
             if (token.sub && session.user) {
                 session.user.id = token.sub;
-            }
-            if (token.sub && session.user) {
                 session.user.role = token.role;
+                session.user.image = token.image;
             }
 
             return session;

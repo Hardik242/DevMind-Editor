@@ -1,33 +1,30 @@
 "use client";
 
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import {Avatar, AvatarImage} from "@/src/components/ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {cn} from "@/lib/utils";
-import {LogOut, User} from "lucide-react";
+} from "@/src/components/ui/dropdown-menu";
+import {cn} from "@/src/lib/utils";
+import {LogOut} from "lucide-react";
 import {useCurrentUser} from "../hooks/use-current-user";
 import LogoutButton from "./logout-button";
 
 export default function UserButton() {
     const user = useCurrentUser();
 
-    console.log(user);
-
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
                 <div className={cn("relative rounded-full")}>
                     <Avatar>
-                        {/* eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain */}
-                        <AvatarImage src={user?.image!} alt={user?.name!} />
-                        <AvatarFallback className="bg-red-500">
-                            <User className="text-white" />
-                        </AvatarFallback>
+                        <AvatarImage
+                            src={user?.image as string}
+                            alt={user?.name as string}
+                        />
                     </Avatar>
                 </div>
             </DropdownMenuTrigger>
@@ -38,7 +35,7 @@ export default function UserButton() {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <LogoutButton>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem variant="destructive">
                         <LogOut className="h-4 w-4 mr-2" />
                         LogOut
                     </DropdownMenuItem>
