@@ -1,4 +1,3 @@
-import {signIn} from "@/auth";
 import {Button} from "@/src/components/ui/button";
 import {
     Card,
@@ -9,15 +8,7 @@ import {
     CardTitle,
 } from "@/src/components/ui/card";
 import Image from "next/image";
-
-async function handleGoogleSignIn() {
-    "use server";
-    await signIn("google");
-}
-async function handleGithubSignIn() {
-    "use server";
-    await signIn("github");
-}
+import {handleGithubSignIn, handleGoogleSignIn} from "../action";
 
 export default function SignInFormClient() {
     return (
@@ -60,11 +51,11 @@ export default function SignInFormClient() {
             <CardFooter>
                 <CardDescription className="px-6 text-center">
                     By clicking continue, you agree to our{" "}
-                    <a href="#" className="font-semibold text-black">
+                    <a href="#" className="font-semibold text-foreground/80">
                         Terms of Service
                     </a>{" "}
                     and{" "}
-                    <a href="#" className="font-semibold text-black">
+                    <a href="#" className="font-semibold text-foreground/80">
                         Privacy Policy
                     </a>
                     .
