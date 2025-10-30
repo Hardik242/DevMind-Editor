@@ -29,7 +29,9 @@ export default function Home() {
                     responsive IDE that thinks with you.
                 </p>
 
-                <Link href="/dashboard" className="mb-8">
+                <Link
+                    href="/dashboard"
+                    className="mb-8 hover:drop-shadow-lg hover:drop-shadow-primary/60">
                     <Button variant={"brand"} size={"lg"}>
                         Get Started <ArrowUpRight className="size-3 ml-2" />
                     </Button>
