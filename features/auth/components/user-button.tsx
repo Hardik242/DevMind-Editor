@@ -22,7 +22,7 @@ export default function UserButton() {
                 <div className={cn("relative rounded-full")}>
                     <Avatar>
                         <AvatarImage
-                            src={user?.image as string}
+                            src={user!.image as string}
                             alt={user?.name as string}
                         />
                     </Avatar>

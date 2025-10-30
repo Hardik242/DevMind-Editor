@@ -1,7 +1,6 @@
 "use client";
 
 import SignInFormClient from "@/features/auth/components/signin-form-client";
-import {Toaster} from "@/src/components/ui/sonner";
 import Image from "next/image";
 import {useSearchParams} from "next/navigation";
 import {useEffect} from "react";
@@ -39,8 +38,6 @@ export default function Page() {
             </div>
 
             <SignInFormClient />
-
-            <Toaster richColors={true} position="top-right" />
         </div>
     );
 }
